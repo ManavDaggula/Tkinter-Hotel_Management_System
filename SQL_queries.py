@@ -1,0 +1,3 @@
+room_all='''SELECT * FROM ROOMS;'''
+room_occupied='''SELECT * FROM ROOMS WHERE OCCUPANCY IS NOT NULL;'''
+room_empty='''SELECT * FROM ROOMS WHERE OCCUPANCY IS NULL;'''
