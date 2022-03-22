@@ -26,9 +26,13 @@ chb_empty.pack(side=tk.LEFT)
 chb_all.pack(side=tk.LEFT)
 
 # Creating a Frame to display the Table
-frm_table = tk.Frame(frm_room_status, width=100, height=100, bg="#0d3c59")
+frm_table = tk.Frame(frm_room_status, bg="#0d3c59")
+frm_table.pack()
 # Now creating a table i.e. a bunch of labels
 func.create_room_table(frm_table,selected_option)
-frm_table.pack(fill=tk.X)
+# Adding scrollbar
+vscroll = tk.Scrollbar(frm_room_status,orient=tk.VERTICAL,command=frm_table.yview)
+frm_table.config(yscrollcommand=vscroll.set)
+vscroll.pack(side=tk.RIGHT, fill=tk.Y)
 
 root.mainloop()
