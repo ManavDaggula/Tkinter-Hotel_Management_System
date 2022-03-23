@@ -29,12 +29,20 @@ chb_all.pack(side=tk.LEFT)
 outerframe = tk.Frame(root,bg='green')
 outerframe.pack(fill=tk.X)
 outerframe.columnconfigure(0,weight=1)
-canvas = tk.Canvas(outerframe)
-frm_table = tk.Frame(outerframe, bg="#0d3c59")
+canvas = tk.Canvas(outerframe,background="yellow",scrollregion=(0,0,500,500))
+frm_table = tk.Frame(canvas, bg="#0d3c59")
 sb=tk.Scrollbar(outerframe)
-sb.pack(side=tk.RIGHT)
+sb.pack(side=tk.RIGHT,fill=tk.Y)
 canvas.pack(side=tk.LEFT,expand=True)
 canvas.create_window(0,0,anchor=tk.NW,window=frm_table)
+sb.config(command=canvas.yview)
+canvas.config(yscrollcommand=sb.set)
+# frm_table.bind(
+#     "<Configure>",
+#     lambda e: canvas.configure(
+#         scrollregion=canvas.bbox("all")
+#     )
+# )
 # frm_table.pack(fill=tk.X)
 # Now creating a table i.e. a bunch of labels
 func.create_room_table(frm_table,selected_option)
