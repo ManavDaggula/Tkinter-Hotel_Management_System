@@ -67,38 +67,33 @@ def list_customers():
         cur=conn.cursor()
         cur.execute(query)
         result=cur.fetchall()
+        print(result)
 
         cur.close()
         conn.close()
-        return list(result)
+        l=[]
+        for r in result:
+            l.append(r[0])
+        return l
     except:
-        print("Error has occured")
+        print("Error has occured in listing")
 
-def fetch_customer_details(id,name,number,aadhar,gender,in_time):
-    print(id.get())
-    if(id.get()=="Select a customer ID"):
-        return
+def fetch_customer_details(option,l1,l2,l3,l4,l5):
     try:
-        query=queries.customer_details
+        query=queries.customer_details+option.get()+";"
         conn=sql3.connect("hotel_management.db")
-        print("connection success")
         cur=conn.cursor()
-        
-        cur.execute(query + id.get()+";")
+        cur.execute(query)
         result=cur.fetchall()
+        print(result)
+        l1["text"]=result[0][0]
+        l2["text"]=result[0][1]
+        l3["text"]=result[0][2]
+        l5["text"]=result[0][3]
+        l5["text"]=result[0][4]
 
         cur.close()
         conn.close()
-        print("r=",result)
-
-        # if (result==[]):
-        #     return
-        name["text"]=result[0][0]
-        number["text"]=result[0][1]
-        aadhar["text"]=result[0][2]
-        gender["text"]=result[0][3]
-        in_time["text"]=result[0][4]
-
-
-    except Exception as e:
-        print("Error occured\n",e)
+        
+    except:
+        print("Error has occuredin fetching")
