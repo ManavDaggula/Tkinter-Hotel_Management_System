@@ -42,9 +42,9 @@ optn_1.grid(row=0,column=1)
 # img_btn = tk.PhotoImage(file="checkButton.png")
 # btn_chk = tk.Button(frm_checkout,text="",image=img_btn,command=lambda : func.fetch_customer_details(selected_customer,lbl_7,lbl_8,lbl_9,lbl_10,lbl_11))
 # btn_chk.grid(row=0,column=2)
+
 for i in range(6):
     frm_checkout.rowconfigure(i,weight=1)
-# selected_customer.trace("w",func.fetch_customer_details(selected_customer,lbl_7,lbl_8,lbl_9,lbl_10,lbl_11))
 frm_checkout.columnconfigure(0,weight=1)
 frm_checkout.columnconfigure(1,weight=1)
 

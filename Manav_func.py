@@ -80,10 +80,11 @@ def list_customers():
 
 def fetch_customer_details(option,l1,l2,l3,l4,l5):
     try:
-        query=queries.customer_details+option.get()+";"
+        # query=queries.customer_details+option.get()+";"
+        query=queries.customer_details
         conn=sql3.connect("hotel_management.db")
         cur=conn.cursor()
-        cur.execute(query)
+        cur.execute(query,option.get())
         result=cur.fetchall()
         print(result)
         l1["text"]=result[0][0]
