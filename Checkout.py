@@ -7,6 +7,9 @@ root=tk.Tk()
 # now the header
 lbl_checkout=tk.Label(root, text="Checkout", font=("Segoe Script",20), bg="#0d3c59", fg="#0099ff")
 lbl_checkout.pack(fill=tk.X)
+checkoutImg = tk.PhotoImage(file="checkoutImg.png")
+lbl_img = tk.Label(root,image=checkoutImg,bg="#0d3c59")
+lbl_img.pack(fill=tk.X)
 
 # Starting with the frame
 frm_checkout = tk.Frame(root, bg="#0d3c59")
