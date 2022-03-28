@@ -25,7 +25,7 @@ lbl_5 = tk.Label(frm_checkout,text="Gender", bg="#0d3c59",fg="#79c0ec",font=("He
 lbl_5.grid(row=4,column=0)
 lbl_6 = tk.Label(frm_checkout,text="Check-In Date & Time", bg="#0d3c59",fg="#79c0ec",font=("Helvetica",15,"bold"))
 lbl_6.grid(row=5,column=0)
-selected_customer=tk.StringVar(root)
+selected_customer=tk.StringVar()
 selected_customer.set("Select a customer ID")
 lbl_7 = tk.Label(frm_checkout,text="-", bg="#0d3c59",fg="yellow",font=(15))
 lbl_7.grid(row=1,column=1)
@@ -42,6 +42,11 @@ optn_1.grid(row=0,column=1)
 # img_btn = tk.PhotoImage(file="checkButton.png")
 # btn_chk = tk.Button(frm_checkout,text="",image=img_btn,command=lambda : func.fetch_customer_details(selected_customer,lbl_7,lbl_8,lbl_9,lbl_10,lbl_11))
 # btn_chk.grid(row=0,column=2)
+
+# Adding the next button
+# img_btn = tk.PhotoImage(file="nextButton.png")
+btn_next = tk.Button(frm_checkout,text="Next",bg="#0d3c59", fg="#79c0ec",command=lambda: func.perform_checkout(frm_checkout,selected_customer.get()))
+btn_next.grid(row=6,column=1)
 
 for i in range(6):
     frm_checkout.rowconfigure(i,weight=1)
