@@ -1,0 +1,18 @@
+Hotel Management System
+
+Bill ID:        xxxxxxxx
+Date:           xx-xx-xxxx 
+Time:           xx:xx:xx
+
+Customer Name:          xxxxxxxxxx
+Customer Aadhar:        xxxxxxxxxxxx
+Customer Phone:         xxxxxxxxxx
+Check-In Date-Time:     xx-xx-xx xx:xx:xx
+Check-Out Date-Time:    xx-xx-xx xx:xx:xx
+Room Used:              xxxx
+Price:                  xxx per hr.
+
+Gross Amount:           Rs xxxx
+GST:                    xx %
+
+Total Amount:           Rs xxxx

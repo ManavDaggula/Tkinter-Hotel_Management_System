@@ -7,13 +7,17 @@ root=tk.Tk()
 # now the header
 lbl_checkout=tk.Label(root, text="Checkout", font=("Segoe Script",20), bg="#0d3c59", fg="#0099ff")
 lbl_checkout.pack(fill=tk.X)
-checkoutImg = tk.PhotoImage(file="checkoutImg.png")
-lbl_img = tk.Label(root,image=checkoutImg,bg="#0d3c59")
-lbl_img.pack(fill=tk.X)
+# checkoutImg = tk.PhotoImage(file="checkoutImg.png")
+# lbl_img = tk.Label(root,image=checkoutImg,bg="#0d3c59")
+# lbl_img.pack(fill=tk.X)
 
 # Starting with the frame
 frm_checkout = tk.Frame(root, bg="#0d3c59")
-frm_checkout.pack(fill="both",expand=True)
+frm_checkout.pack(fill="both",expand=True,side=tk.LEFT)
+
+img_lbl = tk.PhotoImage(file="checkout_image.png")
+lbl_img = tk.Label(root,image=img_lbl,bg="#0d3c59")
+lbl_img.pack(side=tk.RIGHT,fill=tk.BOTH)
 
 #creating the labels to be displayed and dropdown list to be selected from
 lbl_1 = tk.Label(frm_checkout,text="Customer ID", bg="#0d3c59",fg="#79c0ec",font=("Helvetica",15,"bold"))
@@ -48,8 +52,8 @@ optn_1.grid(row=0,column=1)
 
 # Adding the next button
 # img_btn = tk.PhotoImage(file="nextButton.png")
-btn_next = tk.Button(frm_checkout,text="Next",bg="#0d3c59", fg="#79c0ec",command=lambda: func.perform_checkout(frm_checkout,selected_customer.get()))
-btn_next.grid(row=6,column=1)
+btn_next = tk.Button(frm_checkout,text="Next",bg="#0d3c59", fg="yellow",command=lambda: func.perform_checkout(frm_checkout,selected_customer.get()))
+btn_next.grid(row=6,column=1,sticky="nsew")
 
 for i in range(6):
     frm_checkout.rowconfigure(i,weight=1)
