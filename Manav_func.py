@@ -68,7 +68,7 @@ def list_customers():
         cur=conn.cursor()
         cur.execute(query)
         result=cur.fetchall()
-        print(result)
+        # print(result)
 
         cur.close()
         conn.close()
@@ -87,7 +87,7 @@ def fetch_customer_details(option,l1,l2,l3,l4,l5):
         cur=conn.cursor()
         cur.execute(query,option.get())
         result=cur.fetchall()
-        print(result)
+        # print(result)
         l1["text"]=result[0][0]
         l2["text"]=result[0][1]
         l3["text"]=result[0][2]
@@ -123,7 +123,7 @@ def perform_checkout(frm,cust_id):
 
     btn_back = tk.Button(frm,text="Back",command=lambda: cancel_checkout(frm))
     btn_back.grid(row=4,column=0)
-    btn_ok = tk.Button(frm,text="OK",command=lambda: delete_customer(cust_id))
+    btn_ok = tk.Button(frm,text="OK",command=lambda: delete_customer(cust_id,lbl8['text']))
     btn_ok.grid(row=4,column=1)
 
     try:
@@ -132,7 +132,7 @@ def perform_checkout(frm,cust_id):
         cur=conn.cursor()
         cur.execute(query,cust_id)
         result=cur.fetchone()
-        print(result)
+        # print(result)
 
         lbl5.config(text=cust_id)
         lbl6.config(text=result[0])
@@ -147,16 +147,18 @@ def perform_checkout(frm,cust_id):
         # print(e)
 
 
-def delete_customer(cust_id):
-    print("Ok button pressed.")
+def delete_customer(cust_id,amount):
+    # print("Ok button pressed.")
     try:
         conn=sql3.connect("hotel_management.db")
         cur=conn.cursor()
         
-        query=queries.empty_room
-        cur.execute(query,cust_id)
-        query=queries.delete_customer
-        cur.execute(query,cust_id)
+        # query=queries.empty_room
+        # cur.execute(query,cust_id)
+        # query=queries.delete_customer
+        # cur.execute(query,cust_id)
+
+        generate_bill_details(cust_id,amount)
         
         conn.commit()
         cur.close()
@@ -211,3 +213,72 @@ def cancel_checkout(frm):
         frm.rowconfigure(i,weight=1)
     frm.columnconfigure(0,weight=1)
     frm.columnconfigure(1,weight=1)
+
+def make_bill(bill_no,date,time,cname,caadhar,phone,check_in,check_out,room,price,amount):
+    try:
+        bill_text = "      Hotel Management System\n\n"+"Bill ID:\t\t"+bill_no+"\nDate:\t\t\t"+date+"\nTime:\t\t\t"+time+"\n\nCustomer Name:\t\t\t"+cname+"\nCustomer Aadhar:\t\t\t"+caadhar+"\nCustomer Phone:\t\t\t"+phone+"\nCheck-In Date-Time:\t\t"+check_in+"\nCheck-Out Date-Time:\t\t"+check_out+"\nRoom Used:\t\t\t\t"+room+"\nPrice:\t\t\t\t"+price+" per hr."
+
+        bill_text = bill_text + "\n\nGross Amount:\t\t\t"+amount+"\nGST:\t\t\t\t\t18\%\n\nTotal Amount:\t\t\tRs "+str(int(float(amount)*1.18))
+        b=open("bill.txt","w")
+        # print(b,type(b))
+        b.write(bill_text)
+        b.close()
+        b=open("bill.txt","rb")
+        bill=b.read()
+        # print(bill)
+
+        conn = sql3.connect('hotel_management.db')
+        cur = conn.cursor()
+        query = queries.save_bill
+        cur.execute(query,(bill,))
+        conn.commit()
+        cur.close()
+        conn.close()
+        b.close()
+
+    except Exception as e:
+        # print("Error in Making Bill")
+        print(e)
+
+
+def generate_bill_details(id,amount):
+    try:
+        conn = sql3.connect('hotel_management.db')
+        cur = conn.cursor()
+
+        bill_id=0
+        query=queries.get_bill_id
+        cur.execute(query)
+        result=cur.fetchone()
+        if (result!=None):
+            bill_id=result[0]
+        # print(bill_id)
+        query=queries.get_bill_details
+        # print(query)
+        cur.execute(query,id)
+        result=cur.fetchone()
+        # print(result)
+        make_bill(str(bill_id),str(result[0]),str(result[1]),str(result[2]),str(result[3]),str(result[4]),str(result[5]),str(result[6]),str(result[7]),str(result[8]),str(amount))
+
+        conn.commit()
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print(e)
+
+def obtain_bill(id):
+    try:
+        conn = sql3.connect('hotel_management.db')
+        cur = conn.cursor()
+
+        query=queries.obtain_bill
+        cur.execute(query,id)
+        result=cur.fetchone()
+        with open("obtained_bill.txt","wb") as b:
+            b.write(result[0])
+
+        conn.commit()
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print("Error obtaining bill from saved reserve.")
