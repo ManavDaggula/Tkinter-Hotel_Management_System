@@ -6,3 +6,5 @@ customer_details = '''SELECT NAME,PHONE_NO,AADHAR,GENDER,ENTRY_TIME FROM CUSTOME
 calc_fare = '''select entry_time,datetime("now","localtime"),(strftime("%s","now","localtime")-strftime("%s",entry_time))/3600*price from customer,rooms where occupancy=customer.id and customer.id=?;'''
 empty_room='''update rooms set occupancy=Null where occupancy=?;'''
 delete_customer='''delete from customer where id=?;'''
+get_bill_details='''select strftime("%d-%m-%Y","now","localtime"),time("now","localtime"),name,aadhar,phone_no,entry_time,datetime("now","localtime"),room_no,price from customer,rooms where occupancy=id and id=?;'''
+get_bill_id = '''select id from bills order by id desc;'''

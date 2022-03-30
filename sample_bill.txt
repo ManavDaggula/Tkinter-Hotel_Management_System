@@ -1,7 +1,7 @@
 Hotel Management System
 
 Bill ID:        xxxxxxxx
-Date:           xx-xx-xxxx 
+Date:           xx-xx-xxxx
 Time:           xx:xx:xx
 
 Customer Name:          xxxxxxxxxx
